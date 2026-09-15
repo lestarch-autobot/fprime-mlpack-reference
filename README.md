@@ -33,17 +33,17 @@ a very simple affair: just `#include <mlpack.hpp>` and use the library.
 
 For CMake configuration, two things are necessary:
 
- * [Add mlpack as a project dependency](https://github.com/rcurtin/fprime-mlpack-reference/blob/master/CMakeLists.txt#L20)
- * [Link components that use mlpack against OpenBLAS](https://github.com/rcurtin/fprime-mlpack-reference/blob/master/Components/KDEAnomalyDetector/CMakeLists.txt#L22)
+ * [Add mlpack as a project dependency](https://github.com/fprime-community/fprime-mlpack-reference/blob/master/CMakeLists.txt#L20)
+ * [Link components that use mlpack against OpenBLAS](https://github.com/fprime-community/fprime-mlpack-reference/blob/master/Components/KDEAnomalyDetector/CMakeLists.txt#L22)
 
 For our example anomaly detector, we need two components that are implemented in
 this repository:
 
- * [`TlmSplit`](https://github.com/rcurtin/fprime-mlpack-reference/tree/master/Components/TlmSplitter)
+ * [`TlmSplit`](https://github.com/fprime-community/fprime-mlpack-reference/tree/master/Components/TlmSplitter)
    - This is a telemetry splitter: it sends all received telemetry both to the
      anomaly detector and the regular telemetry recorder `TlmChan`.
 
- * [`KDEAnomalyDetector`](https://github.com/rcurtin/fprime-mlpack-reference/tree/master/Components/KDEAnomalyDetector)
+ * [`KDEAnomalyDetector`](https://github.com/fprime-community/fprime-mlpack-reference/tree/master/Components/KDEAnomalyDetector)
    - This is the anomaly detector, which uses mlpack's `KDE` class internally.
    - This component provides a `RESET` command, which is used to train the
      anomaly detector on recently-recorded telemetry.
@@ -51,11 +51,11 @@ this repository:
 
 Then, this repository has a simple example deployment:
 
- * [`ExampleDeployment`](https://github.com/rcurtin/fprime-mlpack-reference/tree/master/ExampleDeployment)
-   - The [`instances.fpp`](https://github.com/rcurtin/fprime-mlpack-reference/blob/master/ExampleDeployment/Top/instances.fpp)
+ * [`ExampleDeployment`](https://github.com/fprime-community/fprime-mlpack-reference/tree/master/ExampleDeployment)
+   - The [`instances.fpp`](https://github.com/fprime-community/fprime-mlpack-reference/blob/master/ExampleDeployment/Top/instances.fpp)
      file defines a `TlmSplit` and `KDEAnomalyDetector` component.
 
-   - The [`topology.fpp`](https://github.com/rcurtin/fprime-mlpack-reference/blob/master/ExampleDeployment/Top/topology.fpp)
+   - The [`topology.fpp`](https://github.com/fprime-community/fprime-mlpack-reference/blob/master/ExampleDeployment/Top/topology.fpp)
      file routes all telemetry to `TlmSplit`, which then routes it to the
      anomaly detector.  The anomaly detector is placed on the 1 Hz run group,
      so, it runs once per second.
@@ -65,7 +65,7 @@ Then, this repository has a simple example deployment:
 Once you have `fprime-bootstrap` installed, clone the project like this:
 
 ```sh
-fprime-bootstrap clone https://github.com/rcurtin/fprime-mlpack-reference
+fprime-bootstrap clone https://github.com/fprime-community/fprime-mlpack-reference
 ```
 
 and then you can use the virtual environment created by that process to actually
@@ -112,7 +112,7 @@ Of course, this example deployment here is tuned specifically for detecting
 anomalies *only* using CPU utilization.  A real mission would want to use other
 telemetry channels.
 
-The code in [`KDEAnomalyDetector.cpp`](https://github.com/rcurtin/fprime-mlpack-reference/blob/master/Components/KDEAnomalyDetector/KDEAnomalyDetector.cpp)
+The code in [`KDEAnomalyDetector.cpp`](https://github.com/fprime-community/fprime-mlpack-reference/blob/master/Components/KDEAnomalyDetector/KDEAnomalyDetector.cpp)
 has comments about where to add more telemetry channels, and the component also
 comes with two tuning parameters that can be set as commands:
 
